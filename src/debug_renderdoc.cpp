@@ -8,6 +8,7 @@
 #if BGFX_CONFIG_DEBUG_PIX && (BX_PLATFORM_WINDOWS || BX_PLATFORM_LINUX)
 #	if BX_PLATFORM_WINDOWS
 #		include <psapi.h>
+#		pragma comment(lib, "psapi.lib")
 #	endif // BX_PLATFORM_WINDOWS
 #	include <renderdoc/renderdoc_app.h>
 
