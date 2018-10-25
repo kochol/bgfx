@@ -35,6 +35,22 @@
 #define IMGUI_DISABLE_WIN32_DEFAULT_CLIPBOARD_FUNCTIONS
 #define IMGUI_DISABLE_WIN32_DEFAULT_IME_FUNCTIONS
 
+#if defined( _MSC_VER )
+#	pragma warning(disable:4251) // dll interface for std types
+#	ifdef ARI_EXPORT
+#		define IMGUI_API __declspec(dllexport)
+#	else
+#		define IMGUI_API __declspec(dllimport)
+#	endif
+#else
+#	ifdef ARI_EXPORT
+#		define IMGUI_API __attribute__((visibility("default")))
+#	else
+#		define IMGUI_API
+#	endif
+#endif
+
+
 //---- Don't implement help and test window functionality (ShowUserGuide()/ShowStyleEditor()/ShowTestWindow() methods will be empty)
 //#define IMGUI_DISABLE_TEST_WINDOWS
 
