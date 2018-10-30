@@ -41,6 +41,8 @@
 #include "robotomono_regular.ttf.h"
 #include "icons_kenney.ttf.h"
 #include "icons_font_awesome.ttf.h"
+#include "../../../../../include/ari/io/IoEnums.hpp"
+#include "../../../../../include/ari/io/Input.hpp"
 
 static const bgfx::EmbeddedShader s_embeddedShaders[] =
 {
@@ -217,51 +219,51 @@ struct OcornutImguiContext
 
 		setupStyle(true);
 
-#if USE_ENTRY
-		io.KeyMap[ImGuiKey_Tab]        = (int)entry::Key::Tab;
-		io.KeyMap[ImGuiKey_LeftArrow]  = (int)entry::Key::Left;
-		io.KeyMap[ImGuiKey_RightArrow] = (int)entry::Key::Right;
-		io.KeyMap[ImGuiKey_UpArrow]    = (int)entry::Key::Up;
-		io.KeyMap[ImGuiKey_DownArrow]  = (int)entry::Key::Down;
-		io.KeyMap[ImGuiKey_PageUp]     = (int)entry::Key::PageUp;
-		io.KeyMap[ImGuiKey_PageDown]   = (int)entry::Key::PageDown;
-		io.KeyMap[ImGuiKey_Home]       = (int)entry::Key::Home;
-		io.KeyMap[ImGuiKey_End]        = (int)entry::Key::End;
-		io.KeyMap[ImGuiKey_Insert]     = (int)entry::Key::Insert;
-		io.KeyMap[ImGuiKey_Delete]     = (int)entry::Key::Delete;
-		io.KeyMap[ImGuiKey_Backspace]  = (int)entry::Key::Backspace;
-		io.KeyMap[ImGuiKey_Space]      = (int)entry::Key::Space;
-		io.KeyMap[ImGuiKey_Enter]      = (int)entry::Key::Return;
-		io.KeyMap[ImGuiKey_Escape]     = (int)entry::Key::Esc;
-		io.KeyMap[ImGuiKey_A]          = (int)entry::Key::KeyA;
-		io.KeyMap[ImGuiKey_C]          = (int)entry::Key::KeyC;
-		io.KeyMap[ImGuiKey_V]          = (int)entry::Key::KeyV;
-		io.KeyMap[ImGuiKey_X]          = (int)entry::Key::KeyX;
-		io.KeyMap[ImGuiKey_Y]          = (int)entry::Key::KeyY;
-		io.KeyMap[ImGuiKey_Z]          = (int)entry::Key::KeyZ;
+//#if USE_ENTRY
+		io.KeyMap[ImGuiKey_Tab]        = (int)ari::Key::Tab;
+		io.KeyMap[ImGuiKey_LeftArrow]  = (int)ari::Key::Left;
+		io.KeyMap[ImGuiKey_RightArrow] = (int)ari::Key::Right;
+		io.KeyMap[ImGuiKey_UpArrow]    = (int)ari::Key::Up;
+		io.KeyMap[ImGuiKey_DownArrow]  = (int)ari::Key::Down;
+		io.KeyMap[ImGuiKey_PageUp]     = (int)ari::Key::PageUp;
+		io.KeyMap[ImGuiKey_PageDown]   = (int)ari::Key::PageDown;
+		io.KeyMap[ImGuiKey_Home]       = (int)ari::Key::Home;
+		io.KeyMap[ImGuiKey_End]        = (int)ari::Key::End;
+		io.KeyMap[ImGuiKey_Insert]     = (int)ari::Key::Insert;
+		io.KeyMap[ImGuiKey_Delete]     = (int)ari::Key::Delete;
+		io.KeyMap[ImGuiKey_Backspace]  = (int)ari::Key::Backspace;
+		io.KeyMap[ImGuiKey_Space]      = (int)ari::Key::Space;
+		io.KeyMap[ImGuiKey_Enter]      = (int)ari::Key::Return;
+		io.KeyMap[ImGuiKey_Escape]     = (int)ari::Key::Esc;
+		io.KeyMap[ImGuiKey_A]          = (int)ari::Key::KeyA;
+		io.KeyMap[ImGuiKey_C]          = (int)ari::Key::KeyC;
+		io.KeyMap[ImGuiKey_V]          = (int)ari::Key::KeyV;
+		io.KeyMap[ImGuiKey_X]          = (int)ari::Key::KeyX;
+		io.KeyMap[ImGuiKey_Y]          = (int)ari::Key::KeyY;
+		io.KeyMap[ImGuiKey_Z]          = (int)ari::Key::KeyZ;
 
 		io.ConfigFlags |= 0
 			| ImGuiConfigFlags_NavEnableGamepad
 			| ImGuiConfigFlags_NavEnableKeyboard
 			;
 
-		io.NavInputs[ImGuiNavInput_Activate]    = (int)entry::Key::GamepadA;
-		io.NavInputs[ImGuiNavInput_Cancel]      = (int)entry::Key::GamepadB;
-//		io.NavInputs[ImGuiNavInput_Input]       = (int)entry::Key::;
-//		io.NavInputs[ImGuiNavInput_Menu]        = (int)entry::Key::;
-		io.NavInputs[ImGuiNavInput_DpadLeft]    = (int)entry::Key::GamepadLeft;
-		io.NavInputs[ImGuiNavInput_DpadRight]   = (int)entry::Key::GamepadRight;
-		io.NavInputs[ImGuiNavInput_DpadUp]      = (int)entry::Key::GamepadUp;
-		io.NavInputs[ImGuiNavInput_DpadDown]    = (int)entry::Key::GamepadDown;
-//		io.NavInputs[ImGuiNavInput_LStickLeft]  = (int)entry::Key::;
-//		io.NavInputs[ImGuiNavInput_LStickRight] = (int)entry::Key::;
-//		io.NavInputs[ImGuiNavInput_LStickUp]    = (int)entry::Key::;
-//		io.NavInputs[ImGuiNavInput_LStickDown]  = (int)entry::Key::;
-//		io.NavInputs[ImGuiNavInput_FocusPrev]   = (int)entry::Key::;
-//		io.NavInputs[ImGuiNavInput_FocusNext]   = (int)entry::Key::;
-//		io.NavInputs[ImGuiNavInput_TweakSlow]   = (int)entry::Key::;
-//		io.NavInputs[ImGuiNavInput_TweakFast]   = (int)entry::Key::;
-#endif // USE_ENTRY
+		io.NavInputs[ImGuiNavInput_Activate]    = (int)ari::Key::GamepadA;
+		io.NavInputs[ImGuiNavInput_Cancel]      = (int)ari::Key::GamepadB;
+//		io.NavInputs[ImGuiNavInput_Input]       = (int)ari::Key::;
+//		io.NavInputs[ImGuiNavInput_Menu]        = (int)ari::Key::;
+		io.NavInputs[ImGuiNavInput_DpadLeft]    = (int)ari::Key::GamepadLeft;
+		io.NavInputs[ImGuiNavInput_DpadRight]   = (int)ari::Key::GamepadRight;
+		io.NavInputs[ImGuiNavInput_DpadUp]      = (int)ari::Key::GamepadUp;
+		io.NavInputs[ImGuiNavInput_DpadDown]    = (int)ari::Key::GamepadDown;
+//		io.NavInputs[ImGuiNavInput_LStickLeft]  = (int)ari::Key::;
+//		io.NavInputs[ImGuiNavInput_LStickRight] = (int)ari::Key::;
+//		io.NavInputs[ImGuiNavInput_LStickUp]    = (int)ari::Key::;
+//		io.NavInputs[ImGuiNavInput_LStickDown]  = (int)ari::Key::;
+//		io.NavInputs[ImGuiNavInput_FocusPrev]   = (int)ari::Key::;
+//		io.NavInputs[ImGuiNavInput_FocusNext]   = (int)ari::Key::;
+//		io.NavInputs[ImGuiNavInput_TweakSlow]   = (int)ari::Key::;
+//		io.NavInputs[ImGuiNavInput_TweakFast]   = (int)ari::Key::;
+//#endif // USE_ENTRY
 
 		bgfx::RendererType::Enum type = bgfx::getRendererType();
 		m_program = bgfx::createProgram(
@@ -397,16 +399,24 @@ struct OcornutImguiContext
 		io.MouseWheel = (float)(_scroll - m_lastScroll);
 		m_lastScroll = _scroll;
 
-#if USE_ENTRY
-		uint8_t modifiers = inputGetModifiersState();
-		io.KeyShift = 0 != (modifiers & (entry::Modifier::LeftShift | entry::Modifier::RightShift) );
-		io.KeyCtrl  = 0 != (modifiers & (entry::Modifier::LeftCtrl  | entry::Modifier::RightCtrl ) );
-		io.KeyAlt   = 0 != (modifiers & (entry::Modifier::LeftAlt   | entry::Modifier::RightAlt  ) );
-		for (int32_t ii = 0; ii < (int32_t)entry::Key::Count; ++ii)
+		char* utf8Char;
+		do
 		{
-			io.KeysDown[ii] = inputGetKeyState(entry::Key::Enum(ii) );
+			utf8Char = (char*)ari::inputGetChar();
+			if (utf8Char)
+				io.AddInputCharactersUTF8(utf8Char);
+		} while (utf8Char);
+
+//#if USE_ENTRY
+		uint8_t modifiers = ari::inputGetModifiersState();
+		io.KeyShift = 0 != (modifiers & (ari::Modifier::LeftShift | ari::Modifier::RightShift) );
+		io.KeyCtrl  = 0 != (modifiers & (ari::Modifier::LeftCtrl  | ari::Modifier::RightCtrl ) );
+		io.KeyAlt   = 0 != (modifiers & (ari::Modifier::LeftAlt   | ari::Modifier::RightAlt  ) );
+		for (int32_t ii = 0; ii < (int32_t)ari::Key::Count; ++ii)
+		{
+			io.KeysDown[ii] = ari::inputGetKeyState(ari::Key::Enum(ii) );
 		}
-#endif // USE_ENTRY
+#//endif // USE_ENTRY
 
 		ImGui::NewFrame();
 
