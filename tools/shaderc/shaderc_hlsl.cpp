@@ -673,11 +673,12 @@ namespace bgfx { namespace hlsl
 				std::string output;
 				bx::Error err;
 				LineReader reader(_code.c_str() );
-				while (err.isOk() )
+				int32_t len = 1;
+				while (err.isOk() && len > 0)
 				{
 					char str[4096];
-					int32_t len = bx::read(&reader, str, BX_COUNTOF(str), &err);
-					if (err.isOk() )
+					len = bx::read(&reader, str, BX_COUNTOF(str), &err);
+					if (err.isOk() && len > 0)
 					{
 						std::string strLine(str, len);
 

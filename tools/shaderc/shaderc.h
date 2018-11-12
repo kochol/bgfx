@@ -83,7 +83,7 @@ namespace bgfx
 			if (m_str[m_pos] == '\0'
 			||  m_pos == m_size)
 			{
-				BX_ERROR_SET(_err, BX_ERROR_READERWRITER_EOF, "LineReader: EOF.");
+//				BX_ERROR_SET(_err, BX_ERROR_READERWRITER_EOF, "LineReader: EOF.");
 				return 0;
 			}
 
