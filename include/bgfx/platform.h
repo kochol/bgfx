@@ -46,7 +46,7 @@ namespace bgfx
 	/// @warning This call should be only used on platforms that don't
 	///   allow creating separate rendering thread. If it is called before
 	///   to bgfx::init, render thread won't be created by bgfx::init call.
-	RenderFrame::Enum renderFrame(int32_t _msecs = -1);
+	BGFX_SHARED_LIB_API RenderFrame::Enum renderFrame(int32_t _msecs = -1);
 
 	/// Platform data.
 	///
@@ -68,7 +68,7 @@ namespace bgfx
 	///
 	/// @attention C99 equivalent is `bgfx_set_platform_data`.
 	///
-	void setPlatformData(const PlatformData& _data);
+	BGFX_SHARED_LIB_API void setPlatformData(const PlatformData& _data);
 
 	/// Internal data.
 	///
@@ -89,7 +89,7 @@ namespace bgfx
 	///
 	/// @attention C99 equivalent is `bgfx_get_internal_data`.
 	///
-	const InternalData* getInternalData();
+	BGFX_SHARED_LIB_API const InternalData* getInternalData();
 
 	/// Override internal texture with externally created texture. Previously
 	/// created internal texture will released.
@@ -107,7 +107,7 @@ namespace bgfx
 	///
 	/// @attention C99 equivalent is `bgfx_override_internal_texture_ptr`.
 	///
-	uintptr_t overrideInternal(TextureHandle _handle, uintptr_t _ptr);
+	BGFX_SHARED_LIB_API uintptr_t overrideInternal(TextureHandle _handle, uintptr_t _ptr);
 
 	/// Override internal texture by creating new texture. Previously created
 	/// internal texture will released.
@@ -134,7 +134,7 @@ namespace bgfx
 	///
 	/// @attention C99 equivalent is `bgfx_override_internal_texture`.
 	///
-	uintptr_t overrideInternal(TextureHandle _handle, uint16_t _width, uint16_t _height, uint8_t _numMips, TextureFormat::Enum _format, uint32_t _flags = BGFX_TEXTURE_NONE);
+	BGFX_SHARED_LIB_API uintptr_t overrideInternal(TextureHandle _handle, uint16_t _width, uint16_t _height, uint8_t _numMips, TextureFormat::Enum _format, uint32_t _flags = BGFX_TEXTURE_NONE);
 
 } // namespace bgfx
 

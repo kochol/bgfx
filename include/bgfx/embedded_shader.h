@@ -136,7 +136,7 @@ namespace bgfx
 		Data data[RendererType::Count];
 	};
 
-	ShaderHandle createEmbeddedShader(const bgfx::EmbeddedShader* _es, RendererType::Enum _type, const char* _name);
+	BGFX_SHARED_LIB_API ShaderHandle createEmbeddedShader(const bgfx::EmbeddedShader* _es, RendererType::Enum _type, const char* _name);
 
 } // namespace bgfx
 
