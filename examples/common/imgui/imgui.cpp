@@ -475,6 +475,15 @@ void imguiEndFrame()
 	s_ctx.endFrame();
 }
 
+void imguiRender(bgfx::ViewId _viewId, ImDrawData* _drawData)
+{
+	const bgfx::ViewId oldViewId = s_ctx.m_viewId;
+	s_ctx.m_viewId = _viewId;
+	s_ctx.render(_drawData);
+	s_ctx.m_viewId = oldViewId;
+}
+
+
 namespace ImGui
 {
 	void PushFont(Font::Enum _font)

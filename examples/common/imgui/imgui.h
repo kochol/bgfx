@@ -33,6 +33,8 @@ void imguiDestroy();
 void imguiBeginFrame(int32_t _mx, int32_t _my, uint8_t _button, int32_t _scroll, uint16_t _width, uint16_t _height, char _inputChar = 0, bgfx::ViewId _view = 255);
 void imguiEndFrame();
 
+void imguiRender(bgfx::ViewId _viewId, ImDrawData* _drawData);
+
 namespace entry { class AppI; }
 void showExampleDialog(entry::AppI* _app, const char* _errorText = NULL);
 
