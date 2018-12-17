@@ -375,6 +375,7 @@ struct OcornutImguiContext
 		)
 	{
 		m_viewId = _viewId;
+		ImGui::SetCurrentContext(m_imgui);
 
 		ImGuiIO& io = ImGui::GetIO();
 		if (_inputChar < 0x7f)
