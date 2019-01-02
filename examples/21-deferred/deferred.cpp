@@ -316,8 +316,7 @@ public:
 
 		cameraCreate();
 
-		const float initialPos[3] = { 0.0f, 0.0f, -15.0f };
-		cameraSetPosition(initialPos);
+		cameraSetPosition({ 0.0f, 0.0f, -15.0f });
 		cameraSetVerticalAngle(0.0f);
 	}
 
@@ -418,17 +417,17 @@ public:
 						bgfx::destroy(m_gbuffer);
 					}
 
-					const uint32_t samplerFlags = 0
+					const uint64_t tsFlags = 0
 						| BGFX_TEXTURE_RT
-						| BGFX_TEXTURE_MIN_POINT
-						| BGFX_TEXTURE_MAG_POINT
-						| BGFX_TEXTURE_MIP_POINT
-						| BGFX_TEXTURE_U_CLAMP
-						| BGFX_TEXTURE_V_CLAMP
+						| BGFX_SAMPLER_MIN_POINT
+						| BGFX_SAMPLER_MAG_POINT
+						| BGFX_SAMPLER_MIP_POINT
+						| BGFX_SAMPLER_U_CLAMP
+						| BGFX_SAMPLER_V_CLAMP
 						;
-					m_gbufferTex[0] = bgfx::createTexture2D(uint16_t(m_width), uint16_t(m_height), false, 1, bgfx::TextureFormat::BGRA8, samplerFlags);
-					m_gbufferTex[1] = bgfx::createTexture2D(uint16_t(m_width), uint16_t(m_height), false, 1, bgfx::TextureFormat::BGRA8, samplerFlags);
-					m_gbufferTex[2] = bgfx::createTexture2D(uint16_t(m_width), uint16_t(m_height), false, 1, bgfx::TextureFormat::D24,   samplerFlags);
+					m_gbufferTex[0] = bgfx::createTexture2D(uint16_t(m_width), uint16_t(m_height), false, 1, bgfx::TextureFormat::BGRA8, tsFlags);
+					m_gbufferTex[1] = bgfx::createTexture2D(uint16_t(m_width), uint16_t(m_height), false, 1, bgfx::TextureFormat::BGRA8, tsFlags);
+					m_gbufferTex[2] = bgfx::createTexture2D(uint16_t(m_width), uint16_t(m_height), false, 1, bgfx::TextureFormat::D24S8, tsFlags);
 					m_gbuffer = bgfx::createFrameBuffer(BX_COUNTOF(m_gbufferTex), m_gbufferTex, true);
 
 					if (bgfx::isValid(m_lightBuffer) )
@@ -436,7 +435,7 @@ public:
 						bgfx::destroy(m_lightBuffer);
 					}
 
-					m_lightBuffer = bgfx::createFrameBuffer(uint16_t(m_width), uint16_t(m_height), bgfx::TextureFormat::BGRA8, samplerFlags);
+					m_lightBuffer = bgfx::createFrameBuffer(uint16_t(m_width), uint16_t(m_height), bgfx::TextureFormat::BGRA8, tsFlags);
 				}
 
 				ImGui::SetNextWindowPos(
@@ -554,24 +553,24 @@ public:
 					Sphere lightPosRadius;
 
 					float lightTime = time * m_lightAnimationSpeed * (bx::sin(light/float(m_numLights) * bx::kPiHalf ) * 0.5f + 0.5f);
-					lightPosRadius.m_center[0] = bx::sin( ( (lightTime + light*0.47f) + bx::kPiHalf*1.37f ) )*offset;
-					lightPosRadius.m_center[1] = bx::cos( ( (lightTime + light*0.69f) + bx::kPiHalf*1.49f ) )*offset;
-					lightPosRadius.m_center[2] = bx::sin( ( (lightTime + light*0.37f) + bx::kPiHalf*1.57f ) )*2.0f;
-					lightPosRadius.m_radius = 2.0f;
+					lightPosRadius.m_center.x = bx::sin( ( (lightTime + light*0.47f) + bx::kPiHalf*1.37f ) )*offset;
+					lightPosRadius.m_center.y = bx::cos( ( (lightTime + light*0.69f) + bx::kPiHalf*1.49f ) )*offset;
+					lightPosRadius.m_center.z = bx::sin( ( (lightTime + light*0.37f) + bx::kPiHalf*1.57f ) )*2.0f;
+					lightPosRadius.m_radius   = 2.0f;
 
 					Aabb aabb;
 					toAabb(aabb, lightPosRadius);
 
 					float box[8][3] =
 					{
-						{ aabb.m_min[0], aabb.m_min[1], aabb.m_min[2] },
-						{ aabb.m_min[0], aabb.m_min[1], aabb.m_max[2] },
-						{ aabb.m_min[0], aabb.m_max[1], aabb.m_min[2] },
-						{ aabb.m_min[0], aabb.m_max[1], aabb.m_max[2] },
-						{ aabb.m_max[0], aabb.m_min[1], aabb.m_min[2] },
-						{ aabb.m_max[0], aabb.m_min[1], aabb.m_max[2] },
-						{ aabb.m_max[0], aabb.m_max[1], aabb.m_min[2] },
-						{ aabb.m_max[0], aabb.m_max[1], aabb.m_max[2] },
+						{ aabb.m_min.x, aabb.m_min.y, aabb.m_min.z },
+						{ aabb.m_min.x, aabb.m_min.y, aabb.m_max.z },
+						{ aabb.m_min.x, aabb.m_max.y, aabb.m_min.z },
+						{ aabb.m_min.x, aabb.m_max.y, aabb.m_max.z },
+						{ aabb.m_max.x, aabb.m_min.y, aabb.m_min.z },
+						{ aabb.m_max.x, aabb.m_min.y, aabb.m_max.z },
+						{ aabb.m_max.x, aabb.m_max.y, aabb.m_min.z },
+						{ aabb.m_max.x, aabb.m_max.y, aabb.m_max.z },
 					};
 
 					float xyz[3];

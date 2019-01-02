@@ -517,8 +517,7 @@ public:
 
 		cameraCreate();
 
-		const float initialPos[3] = { 0.0f, 2.0f, -12.0f };
-		cameraSetPosition(initialPos);
+		cameraSetPosition({ 0.0f, 2.0f, -12.0f });
 		cameraSetVerticalAngle(0.0f);
 
 		ddInit();
@@ -566,11 +565,8 @@ public:
 
 			_dde->setColor(0xff0000ff);
 
-			float tmp[3];
-			bx::vec3Mul(tmp, hit.m_normal, 0.7f);
-
-			float end[3];
-			bx::vec3Add(end, hit.m_pos, tmp);
+			const bx::Vec3 tmp = bx::mul(hit.m_normal, 0.7f);
+			const bx::Vec3 end = bx::add(hit.m_pos, tmp);
 
 			_dde->drawCone(hit.m_pos, end, 0.1f);
 
@@ -617,16 +613,6 @@ public:
 			float proj[16];
 
 			// Set view and projection matrix for view 0.
-			const bgfx::HMD* hmd = bgfx::getHMD();
-			if (NULL != hmd && 0 != (hmd->flags & BGFX_HMD_RENDERING) )
-			{
-				float eye[3];
-				cameraGetPosition(eye);
-				bx::mtxQuatTranslationHMD(view, hmd->eye[0].rotation, eye);
-				bgfx::setViewTransform(0, view, hmd->eye[0].projection, BGFX_VIEW_STEREO, hmd->eye[1].projection);
-				bgfx::setViewRect(0, 0, 0, hmd->width, hmd->height);
-			}
-			else
 			{
 				bx::mtxProj(proj, 60.0f, float(m_width)/float(m_height), 0.1f, 100.0f, bgfx::getCaps()->homogeneousDepth);
 
@@ -640,9 +626,9 @@ public:
 			float mtxInvVp[16];
 			bx::mtxInverse(mtxInvVp, mtxVp);
 
-			float zero[3] = {};
-			float eye[] = { 5.0f, 10.0f, 5.0f };
-			bx::mtxLookAt(view, eye, zero);
+			const bx::Vec3 at  = { 0.0f,  0.0f, 0.0f };
+			const bx::Vec3 eye = { 5.0f, 10.0f, 5.0f };
+			bx::mtxLookAt(view, eye, at);
 			bx::mtxProj(proj, 45.0f, float(m_width)/float(m_height), 1.0f, 15.0f, bgfx::getCaps()->homogeneousDepth);
 			bx::mtxMul(mtxVp, view, proj);
 
@@ -703,12 +689,25 @@ public:
 				dde.setWireframe(wireframe);
 				dde.setColor(wireframe ? 0xffff00ff : 0xff00ff00);
 				dde.draw(m_bunny);
+				dde.setTransform(NULL);
 			}
 			dde.pop();
 
-			dde.setTranslate(0.0f, -2.0f, 0.0f);
-			dde.drawGrid(Axis::Y, zero, 20, 1.0f);
-			dde.setTransform(NULL);
+			{
+				const bx::Vec3 normal = { 0.0f,  1.0f, 0.0f };
+				const bx::Vec3 pos    = { 0.0f, -2.0f, 0.0f };
+
+				Plane plane;
+				bx::calcPlane(&plane.m_normal.x, normal, pos);
+
+				dde.setColor(false
+					|| intersect(&dde, ray, plane)
+					? selected
+					: 0xffffffff
+					);
+
+				dde.drawGrid(Axis::Y, pos, 20, 1.0f);
+			}
 
 			dde.drawFrustum(mtxVp);
 
@@ -720,17 +719,17 @@ public:
 				dde.draw(sphere);
 				dde.setWireframe(false);
 
-				sphere.m_center[0] = -2.0f;
+				sphere.m_center.x = -2.0f;
 				dde.setColor(intersect(&dde, ray, sphere) ? selected : 0xc0ffc0ff);
 				dde.setLod(2);
 				dde.draw(sphere);
 
-				sphere.m_center[0] = -4.0f;
+				sphere.m_center.x = -4.0f;
 				dde.setColor(intersect(&dde, ray, sphere) ? selected : 0xa0f0ffff);
 				dde.setLod(1);
 				dde.draw(sphere);
 
-				sphere.m_center[0] = -6.0f;
+				sphere.m_center.x = -6.0f;
 				dde.setColor(intersect(&dde, ray, sphere) ? selected : 0xffc0ff00);
 				dde.setLod(0);
 				dde.draw(sphere);
@@ -740,8 +739,8 @@ public:
 
 			dde.push();
 			{
-				float normal[3] = {  0.0f, 0.0f, 1.0f };
-				float center[3] = { -8.0f, 0.0f, 0.0f };
+				const bx::Vec3 normal = {  0.0f, 0.0f, 1.0f };
+				const bx::Vec3 center = { -8.0f, 0.0f, 0.0f };
 				dde.push();
 					dde.setStipple(true, 1.0f, time*0.1f);
 					dde.setColor(0xff0000ff);
@@ -820,7 +819,7 @@ public:
 				};
 
 				float up[3] = { 0.0f, 4.0f, 0.0f };
-				bx::vec3MulMtx(cylinder.m_end, up, mtx);
+				bx::vec3MulMtx(&cylinder.m_end.x, up, mtx);
 				dde.setColor(intersect(&dde, ray, cylinder) ? selected : 0xffffffff);
 				dde.draw(cylinder);
 

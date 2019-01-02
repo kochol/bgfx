@@ -579,24 +579,10 @@ public:
 			const double toMs = 1000.0/freq;
 			float time = (float)( (now - m_timeOffset)/double(bx::getHPFrequency() ) );
 
-			float at[3]  = { 0.0f, 0.0f,   0.0f };
-			float eye[3] = { 0.0f, 0.0f, -50.0f };
+			const bx::Vec3 at  = { 0.0f, 0.0f,   0.0f };
+			const bx::Vec3 eye = { 0.0f, 0.0f, -50.0f };
 
 			// Set view and projection matrix for view 0.
-			const bgfx::HMD* hmd = bgfx::getHMD();
-			if (NULL != hmd && 0 != (hmd->flags & BGFX_HMD_RENDERING) )
-			{
-				float view[16];
-				bx::mtxQuatTranslationHMD(view, hmd->eye[0].rotation, eye);
-				bgfx::setViewTransform(0, view, hmd->eye[0].projection, BGFX_VIEW_STEREO, hmd->eye[1].projection);
-
-				// Set view 0 default viewport.
-				//
-				// Use HMD's width/height since HMD's internal frame buffer size
-				// might be much larger than window size.
-				bgfx::setViewRect(0, 0, 0, hmd->width, hmd->height);
-			}
-			else
 			{
 				float view[16];
 				bx::mtxLookAt(view, eye, at);
@@ -679,14 +665,14 @@ public:
 						uint32_t xoffset = offset + xx;
 
 						Grid* grid = m_grid;
-						float normal[3] =
+						const bx::Vec3 normal =
 						{
 							grid[xoffset-1     ].m_val - grid[xoffset+1     ].m_val,
 							grid[xoffset-ypitch].m_val - grid[xoffset+ypitch].m_val,
 							grid[xoffset-zpitch].m_val - grid[xoffset+zpitch].m_val,
 						};
 
-						bx::vec3Norm(grid[xoffset].m_normal, normal);
+						bx::store(grid[xoffset].m_normal, bx::normalize(normal) );
 					}
 				}
 			}
