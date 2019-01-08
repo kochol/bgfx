@@ -628,7 +628,7 @@ namespace bgfx
 	///
 	/// @attention C99 equivalent is `bgfx_platform_data_t`.
 	///
-	struct PlatformData
+	struct BGFX_SHARED_LIB_API PlatformData
 	{
 		PlatformData();
 
@@ -2005,7 +2005,7 @@ namespace bgfx
 	///
 	/// @attention C99 equivalent is `bgfx_get_hmd`.
 	///
-	BGFX_SHARED_LIB_API const HMD* getHMD();
+//	BGFX_SHARED_LIB_API const HMD* getHMD();
 
 	/// Returns performance counters.
 	///
