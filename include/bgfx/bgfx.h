@@ -1967,6 +1967,8 @@ namespace bgfx
 	///
 	BGFX_SHARED_LIB_API void end(Encoder* _encoder);
 
+	BGFX_SHARED_LIB_API Encoder* getEncoder0();
+
 	/// Advance to next frame. When using multithreaded renderer, this call
 	/// just swaps internal buffers, kicks render thread, and returns. In
 	/// singlethreaded renderer this call does frame rendering.

@@ -3638,6 +3638,13 @@ namespace bgfx
 		s_ctx->end(_encoder);
 	}
 
+	Encoder* getEncoder0()
+	{
+		BGFX_CHECK_API_THREAD();
+		return s_ctx->m_encoder0;
+	}
+
+
 	uint32_t frame(bool _capture)
 	{
 		BGFX_CHECK_API_THREAD();
